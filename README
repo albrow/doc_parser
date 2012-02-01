@@ -1,0 +1,4 @@
+doc_parser is a set of tools written in Ruby designed to parse the docx file format to either rtf or html. After scouring around the internet for quite sometime, I couldn't find anything to fit my needs, so I decided to give it a try myself.
+
+Required Gems:
+rubyzip
