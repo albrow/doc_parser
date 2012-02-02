@@ -26,9 +26,11 @@ class Parser
   # this method uses recursion to dig deep into an xml tree
   # it checks for text and line breaks, but nothing else
   def raw_string_digger (node)
+    # raw text
     if node.text? && !node.to_s.nil?
       @string << node.to_s
     end
+    # line breaks
     if node.name == "p"
       @string << "\n" unless @string.empty?
     end
@@ -40,5 +42,6 @@ class Parser
     
 end
 
+# this is used for testing. The test.docx uses italics, bold, underline, and several fonts
 parser = Parser.new('test.docx')
 parser.to_raw_string

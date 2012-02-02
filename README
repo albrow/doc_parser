@@ -3,3 +3,7 @@ doc_parser is a set of tools written in Ruby designed to parse the docx file for
 Required Gems:
 rubyzip
 libxml-ruby
+
+Recent Changes:
+added basic unzipping
+added basic raw text parsing
