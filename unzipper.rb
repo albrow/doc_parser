@@ -4,21 +4,23 @@ class UnZipper
 
 require 'rubygems'
 require 'zip/zip'
+require 'fileutils'
 
 def self.unzip(file_name)
   if File.exists?(file_name)
-    self.rename_file(file_name)
+    self.copy_file(file_name)
+    @basename = File.basename(file_name, File.extname(file_name))
   end
-  self.unzip_file('doc.zip', 'unzipped')
-  self.remove_old
+  self.unzip_file('doc.zip', @basename)
+  self.cleanup
 end
 
 private
 
-# First we need to rename the file so it's recognized as a zip
+# First we need to copy the file and change the extension so it's recognized as a zip
 
-  def self.rename_file (file_name)
-    File.rename(file_name, 'doc.zip')
+  def self.copy_file (file_name)
+    FileUtils.cp(file_name, 'doc.zip')
   end
 
 # The following method is based on http://www.markhneedham.com/blog/2008/10/02/ruby-unzipping-a-file-using-rubyzip/ I don't know you, but thank you Mark Needham!
@@ -33,9 +35,8 @@ private
     }
   end
   
-  def self.remove_old
-    #removes the old file, retaining only the unzipped version
-    # File.delete('doc.zip')
+  def self.cleanup
+    File.delete('doc.zip')
   end
 
 end
