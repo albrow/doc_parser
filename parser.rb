@@ -26,19 +26,18 @@ class Parser
 
   # this method uses recursion to dig deep into an xml tree
   # it checks for text and line breaks, but nothing else
-  def raw_string_digger (node, line_breaks = true)
+  def raw_string_digger (node, line_breaks)
     # raw text
     if node.text? && !node.to_s.nil?
       @string << node.to_s
     end
     # line breaks
-    if line_breaks
       if node.name == "p"
-        @string << "\n" unless @string.empty?
+        @string << "\n" if line_breaks && !@string.empty?
+        @string << " " if !line_breaks && !@string.empty?
       end
-    end
     node.children.each do |child|      
-        raw_string_digger(child)
+        raw_string_digger(child, line_breaks)
     end
   end
 
